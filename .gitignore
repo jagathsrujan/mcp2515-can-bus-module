@@ -1,0 +1,5 @@
+.DS_Store
+*.FCBak
+*-backups/
+*.lck
+fp-info-cache
