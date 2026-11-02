@@ -5,7 +5,7 @@
 | Project | MCP2515-based CAN bus module, external 9 V DC input |
 | Board revision | Rev A (not yet released) |
 | Fab / assembly | JLCPCB (PCB + PCBA) |
-| Current phase | **Phase 3 — Power supply (awaiting approval)**; Phases 1–2 approved 2026-11-02 |
+| Current phase | **Phase 5 — CAN PHY (awaiting approval)**; Phases 1–4 approved 2026-11-02 |
 | Spec owner | Opus (lead HW engineer) — Sonnet must not override decisions marked APPROVED |
 
 Value tags used throughout:
@@ -121,7 +121,7 @@ ASCII fallback:
 | J1 power | VIN_RAW, GND | Raw input | 5.5 × 2.1 mm barrel **and/or** 2-pin 5.08 mm terminal ❓ |
 | J2 host | VIO, GND, SCK, MOSI, MISO, CS, INT, RST (1 × 8, 2.54 mm) | VIO | Pin order chosen for short host jumpers; silk labels |
 | J3 CAN | CAN_H, CAN_L, GND (3-pin 5.08 mm terminal) + optional 2nd terminal for daisy-chain ❓ | Bus | GND so remote nodes share reference |
-| JP1 termination | 2-pin 2.54 mm header + shunt | Bus | Fitted = 120 Ω enabled |
+| JP1 termination | 2×2 2.54 mm header + 2 shunts (both poles) | Bus | Both fitted = 120 Ω split termination enabled (rev Phase 5) |
 | SJ1 | VIO ← +3V3 solder jumper | Logic | Default open; only for no-host testing |
 | TPs | VIN, +5V, VIO, GND, CAN_H, CAN_L, TXCAN, RXCAN, SCK, INT | — | Test pads, labelled |
 
@@ -147,7 +147,7 @@ Linear 5 V regulator dissipation at 100 mA **[CALC]**: 9 V → (9 − 5) × 0.1 
 | D-001 | **Host-referenced logic domain:** MCP2515 VDD and transceiver VIO are both powered from a `VIO` pin on the host header. No level translators. | APPROVED | MCP2515 operates 2.7–5.5 V **[DS-pending]**, so it can live at either host level. Removes translator parts, their 10 MHz SPI timing risk, and the "wrong jumper kills a 3.3 V host" failure. Alternative (fixed 3.3 V or 5 V MCP2515 + dual-supply buffers on 6 lines) is rejected for added cost/complexity with no benefit. |
 | D-002 | Transceiver bus side on a **fixed on-board 5 V** rail derived from 9 V | APPROVED | ISO 11898-2 dominant levels need a 5 V supply for full margin; keeps bus drive current (~70 mA) off the host. |
 | D-003 | Transceiver must have a **separate VIO/VCC-logic pin** (1.8–5.5 V class) | APPROVED | Needed by D-001. Candidates for Phase 2: MCP2562 (VIO pin), TJA1051T/3 (VIO pin), TCAN1462/TCAN332-class. SN65HVD230 (3.3 V-only, no VIO) does not satisfy D-001/D-002 and will be scored but is expected to be rejected. |
-| D-004 | Split termination: 2 × 60 Ω (matched, 1 %) + 4.7 nF centre tap to GND, enabled by jumper JP1 | APPROVED | Improves common-mode noise rejection vs a single 120 Ω; values finalised in Phase 5. |
+| D-004 | Split termination: 2 × 60 Ω (matched, 1 %) + 4.7 nF centre tap to GND, enabled by 2-pole jumper JP1 (2×2 header, rev Phase 5) | APPROVED | Improves common-mode noise rejection vs a single 120 Ω; values finalised in Phase 5. |
 | D-005 | CAN bus protection: dual-line CAN-rated TVS at the connector, optional common-mode choke footprint fitted with 0 Ω by default | APPROVED | Choke only needed for EMC-critical installs; footprint costs nothing. |
 | D-006 | Input chain order: connector → reverse-polarity → TVS → bulk + filter → regulator. **Revised D-006r (2026-11-02, PROPOSED): reverse-polarity element changed from P-MOSFET to SS34 Schottky** — see phase2 report §2.4 (P-FET Vgs/Vds overstress at 29.2 V TVS clamp) | APPROVED (incl. D-006r) | TVS after the polarity element so a reversed supply can't forward-bias it into a short. Details Phase 3. |
 | D-007 | Optional on-board 3.3 V LDO with VIO solder jumper (default open) | PROPOSED ❓ | Enables bring-up without a host. Could be deleted to simplify — user choice. |
@@ -171,13 +171,29 @@ Linear 5 V regulator dissipation at 100 mA **[CALC]**: 9 V → (9 − 5) × 0.1 
 | D-019 | Termination 4 × 120 Ω 1 % 0603 (Basic) as 2 × 60 Ω legs + 4.7 nF X7R centre tap |
 | D-020 | Connectors: PJ-002AH barrel, KF128-5.08 terminals (2P alt power DNP, 3P ×2 CAN), 1×8 + 1×2 2.54 mm headers |
 
-### 3.2 Phase 3 power decisions (PROPOSED — see `phase3_power_supply.md`)
+### 3.2 Phase 3 power decisions (APPROVED 2026-11-02 — see `phase3_power_supply.md`)
 | ID | Decision |
 |---|---|
 | D-021 | U3 = AP63205WU-7 buck (LDOs fail thermally at 16 V / 85 °C); L1 SWPA4020S4R7MT 4.7 µH; Cout 2 × 22 µF 25 V 1206; Cin 2 × 10 µF 50 V 1206 + 100 nF; EN tied to VIN |
 | D-022 | Input chain J1 → F1 PTC 0ZCJ0035AF2E → D1 SS34 → D2 SMAJ18A + C1 100 µF 35 V Al → FB1 GZ2012D601TF → buck |
 | D-015r | U4 changed to XC6206P332MR (Basic, datasheet verified); pinout 1 VSS, 2 VOUT, 3 VIN |
 | D-023 | 2-layer board confirmed adequate for the buck at ≤ 0.55 A peak switch current |
+
+### 3.3 Phase 4 decisions (APPROVED 2026-11-02 — see `phase4_mcp2515_oscillator.md`)
+| ID | Decision |
+|---|---|
+| D-024 | 16 MHz, 10 pF C0G load caps, R_S 0 Ω footprint on OSC2 (drive-level option), RF internal |
+| D-025 | Bit timing: 1M 0x00/0x83/0x01; 500k 0x00/0xAE/0x01; 250k 0x01/0xAE/0x01; 125k 0x03/0xAE/0x01 |
+| D-026 | Reset: 10 kΩ pull-up + 10 nF to GND on RST_N, 1 kΩ to pin 17, exposed on J2-8 |
+| D-027 | SPI/INT: 33 Ω series on all five signals; 10 kΩ CS pull-up to VIO; INT push-pull; unused TXnRTS/RXnBF NC; CLKOUT to test pad only |
+
+### 3.4 Phase 5 decisions (PROPOSED — see `phase5_can_phy.md`)
+| ID | Decision |
+|---|---|
+| D-017 | (final) D3 = PESD2CANFD27V-TR, verified |
+| D-028 | U2 STB pin 10 kΩ to GND (Normal mode), TP_STB |
+| D-029 | Split termination 4 × 120 Ω + 4.7 nF, both legs switched by JP1 2×2 header |
+| D-030 | Order at bus: J3/J4 → D3 → termination → L2 (DNP, 0 Ω bypass) → U2 |
 
 ## 4. Implementation constraints identified (Phase 1)
 Phase 2 update: items 1–2 are closed by the TCAN1042 datasheet (Table 9-2 "Protected" mode: bus high-Z when either VIO or VCC is under-voltage); item 3 closed (FOSC ≤ 25 MHz at 2.7–5.5 V, 16 MHz chosen); item 4 confirmed by SPI timing diagrams (TDIS 100 ns). New: transceiver pin 8 (STB) defaults to standby when open, so it must be pulled low; MCP2515 RESET needs external pull-up (none internal).
@@ -244,7 +260,7 @@ Source: `research/jlcpcb_capabilities.md` (Sonnet, URLs inside). All project val
 - [ ] Transceiver VDD = +5V; bus-side levels independent of host.
 - [ ] +5V rail designed for ≥ 100 mA; regulator dissipation within package limits at 16 V input.
 - [ ] Reverse 9 V cannot damage any part; TVS downstream of polarity protection.
-- [ ] Termination disabled when JP1 open; 120 Ω ± 2 % differential when fitted.
+- [ ] Termination fully disconnected (both legs) when JP1 shunts removed; 120 Ω ± 2 % differential when fitted.
 - [ ] All copper/board rules ≥ JLC limits with margin (§6).
 
 ## 8. Change log
@@ -255,3 +271,5 @@ Source: `research/jlcpcb_capabilities.md` (Sonnet, URLs inside). All project val
 | 2026-11-02 | 0.3 | Phase 1 approved by user; defaults adopted for Q-01…Q-05 | Opus |
 | 2026-11-02 | 0.4 | Phase 2 selections proposed (D-012…D-020), D-006r Schottky, INT corrected to push-pull | Opus |
 | 2026-11-02 | 0.5 | Phase 2 approved; Phase 3 power design proposed (D-021…D-023, D-015r) | Opus |
+| 2026-11-02 | 0.6 | Phase 3 approved; Phase 4 proposed (D-024…D-027) | Opus |
+| 2026-11-02 | 0.7 | Phase 4 approved; Phase 5 proposed (D-028…D-030, D-017 final); JP1 now 2×2 | Opus |
