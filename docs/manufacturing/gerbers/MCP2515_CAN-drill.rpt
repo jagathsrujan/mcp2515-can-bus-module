@@ -1,0 +1,25 @@
+Drill report for MCP2515_CAN.kicad_pcb
+Created on 2026-11-03T07:38:12
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'MCP2515_CAN-PTH.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.300mm  0.0118"  (150 holes))
+    T2  1.000mm  0.0394"  (15 holes)  (with 3 slots)
+    T3  1.400mm  0.0551"  (8 holes))
+
+    Total plated holes count 173
+
+
+Drill file 'MCP2515_CAN-NPTH.drl' contains
+    unplated through holes:
+    =============================================================
+    T1  3.200mm  0.1260"  (2 holes))
+
+    Total unplated holes count 2

@@ -1,0 +1,46 @@
+Ref,Qty,Value,Description,MPN,Manufacturer,LCSC,JLC class,Stock (2026-11-03),Unit price USD @qty=5 boards,DNP,Notes
+C1,1,100uF,"Al electrolytic 100 uF 35 V, 6.3x7.7 SMD",FZ100UF35V90RV0064,KNSCHA,C2992596,Extended,15898,0.053,,
+"C2,C3",2,10uF,Capacitor 10 uF 50 V X5R 1206,CL31A106KBHNNNE,Samsung,C13585,Basic,3204326,0.1413,,
+"C4,C7,C11,C12,C14,C17",6,100nF,Capacitor 100 nF 50 V X7R 0603,CC0603KRX7R9BB104,YAGEO,C14663,Basic,39909204,0.0081,,
+"C5,C6",2,22uF,Capacitor 22 uF 25 V X5R 1206,CL31A226KAHNNNE,Samsung,C12891,Basic,1503113,0.118,,
+C8,1,1uF,Capacitor 1 uF 50 V X5R 0603,CL10A105KB8NNNC,Samsung,C15849,Basic,12030232,0.0135,,
+"C9,C10,C13",3,10uF,Capacitor 10 uF 25 V X5R 0805,CL21A106KAYNNNE,Samsung,C15850,Basic,7996240,0.0422,,
+"C15,C16",2,10pF,Capacitor 10 pF C0G 50 V 0603,CL10C100JB8NNNC,Samsung,C1634,Basic,1153830,0.0076,,
+C18,1,10nF,Capacitor 10 nF 50 V X7R 0603,0603B103K500NT,FH,C57112,Basic,5416476,0.0097,,
+C19,1,4.7nF,Capacitor 4.7 nF 50 V X7R 0603,0603B472K500NT,FH,C53987,Basic,836791,0.005,,
+D1,1,SS34,Schottky 40 V 3 A (reverse-polarity),SS34,MDD,C8678,Basic,3220419,0.0351,,
+D2,1,SMAJ18A,TVS 18 V standoff 400 W unidirectional,SMAJ18A,Littelfuse,C148219,Extended,11106,0.1144,,
+D3,1,PESD2CANFD27V-TR,Dual-line CAN ESD TVS 27 V,PESD2CANFD27V-TR,Nexperia,C552488,Extended,1595,0.6626,,
+D4,1,RED,LED red 0603,KT-0603R,Hubei KENTO,C2286,Basic,6960563,0.0077,,Pins: verify polarity in preview
+F1,1,0.35A hold 30V,"PTC resettable fuse 0.35 A hold / 0.75 A trip, 30 V, 1206",0ZCJ0035AF2E,Bel Fuse,C6378052,Extended,9782,0.2834,,Alt BSMD1206-035-30V C910829
+FB1,1,600R@100MHz,Ferrite bead 600 R @100 MHz 0805,GZ2012D601TF,Sunlord,C1017,Basic,487952,0.0201,,
+J1,1,PJ-002AH,"DC barrel jack 5.5x2.1 mm, centre +, THT",PJ-002AH,CUI,C2961147,Extended,1247,1.0579,,Centre-positive. THT
+J2,1,SH-PZ254V-1x8P,Pin header 1x8 2.54 mm,SH-PZ254V-1x8P,SHOU HAN,C55629815,Extended,1632,0.0617,,
+"J3,J4",2,KF128-5.08-3P,Terminal block 5.08 mm 3-pin (CAN),KF128-5.08-3P,Cixi Kefa,C474953,Extended,6287,0.318,,
+J5,1,KF128-5.08-2P,"Terminal block 5.08 mm 2-pin (alt power, DNP)",KF128-5.08-2P,Cixi Kefa,C474952,Extended,56018,0.1931,DNP,DNP; alternate power terminal; J1 and J5 are in parallel - never both powered
+JP1,1,SH-PZ254V-2x2P,Pin header 2x2 2.54 mm (termination),SH-PZ254V-2x2P,SHOU HAN,C55629823,Extended,1760,0.0327,,Hand-fit 2 shunts (C100114) - not on JLC BOM
+L1,1,4.7uH,Shielded power inductor 4.7 uH 2.35 A,SWPA4020S4R7MT,Sunlord,C48427,Extended,30115,0.0624,,
+L2,1,ACT45B-510-2P-TL003,"CAN common-mode choke 51 uH (DNP, 0R bypass fitted)",ACT45B-510-2P-TL003,TDK,C76584,Extended,0,0.4839,DNP,DNP; 0 stock - irrelevant while DNP; 0R R16/R17 fitted
+R1,1,1.5k,Resistor 1.5 k 1% 0603,0603WAF1501T5E,UNI-ROYAL,C22843,Basic,3536349,0.002,,
+"R2,R10,R15",3,10k,Resistor 10 k 1% 0603,0603WAF1002T5E,UNI-ROYAL,C25804,Basic,46758005,0.0024,,"R2 RST pull-up, R10 CS pull-up, R15 STB pull-down"
+R3,1,1k,Resistor 1 k 1% 0603,0603WAF1001T5E,UNI-ROYAL,C21190,Basic,29830432,0.0017,,
+"R4,R16,R17",3,0R,Resistor 0 R 0603,0603WAF0000T5E,UNI-ROYAL,C21189,Basic,20377517,0.0022,,"R4 = OSC2 series (R_S, fit ~1k only if overdriven); R16/R17 = CMC bypass (remove if L2 fitted)"
+"R5,R6,R7,R8,R9",5,33R,Resistor 33 R 1% 0603,0603WAF330JT5E,UNI-ROYAL,C23140,Basic,4159515,0.0024,,
+"R11,R12,R13,R14",4,120R,Resistor 120 R 1% 0603,0603WAF1200T5E,UNI-ROYAL,C22787,Basic,2013689,0.0019,,
+SJ1,1,SJ1_+3V3_to_VIO,"Open solder jumper (PCB feature, +3V3 to VIO)",,,,n/a,,,,No part; footprint only. Rule: close ONLY when no host drives J2-VIO. Excluded from JLC BOM.
+U1,1,MCP2515-I/SO,"CAN controller SPI, SOIC-18W",MCP2515T-I/SO,Microchip,C153782,Extended,4875,,,"Switched from C12368 (JLC: no longer manufactured) on 2026-11-03 per user; same device, tape & reel. Unit price: check at order."
+U2,1,TCAN1042HGVDR,"CAN transceiver 5 Mbit/s, VIO pin, SOIC-8",TCAN1042HGVDR,Texas Instruments,C124014,Extended,2253,2.2485,,Alt TJA1051T/3/1J C38695; MCP2562-E/SN C53609 (pin-compatible)
+U3,1,AP63205WU-7,"5 V fixed 0.6 A buck, 32 V in, TSOT-26",AP63205WU-7,Diodes Inc,C2071056,Extended,27120,0.4625,,
+U4,1,XC6206P332MR,3.3 V 200 mA LDO (optional VIO source),XC6206P332MR,Torex,C5446,Basic,520539,0.1481,,JLC lists XC6206P332MR-G (RoHS suffix variant of MPN)
+Y1,1,16MHz,"Crystal 16 MHz, CL 9 pF, 3225-4",X322516MLB4SI,YXC,C13738,Basic,350892,0.0937,,CL 9 pF; 10 pF caps; bench trim
+(shunts for JP1),2,2.54 mm shunt,"Jumper shunt, hand-fitted (not on JLC BOM)",2.54Short Circuit Cap Closed,,C100114,Extended,363100,0.0094,,Order separately / hand-fit; JP1 needs BOTH shunts for 120R termination
+TP1-TP12,12,Test pad D1.5 mm,Bare copper test pads (PCB feature),,,,n/a,,,,Excluded from BOM/CPL
+"H1,H2",2,M3 hole 3.2 mm,NPTH mounting holes (PCB feature),,,,n/a,,,,Excluded
+FID1-FID3,3,Fiducial 1 mm,Fiducial marks (PCB feature),,,,n/a,,,,Excluded
+
+TOTALS
+"Unique Extended parts on JLC BOM (assembled, excl DNP/shunts)",12,"C153782, C124014, C148219, C2071056, C2961147, C2992596, C474953, C48427, C552488, C55629815, C55629823, C6378052"
+"Component cost per board, 5-board order (USD, JLC tier prices)",8.5
+"Component cost, 5 boards total (USD)",42.51
+"Shunts 2 x C100114 per board, 5 boards (USD, not on JLC BOM)",0.019,per board
+"Excludes PCB, assembly labour, Extended-part setup fees (~$3 each, unverified) and shipping"

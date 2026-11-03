@@ -8,7 +8,7 @@ Tags: **[DS]** datasheet, **[LIST]** JLC/LCSC listing only, **(interp.)** my int
 
 | Net | Meaning |
 |---|---|
-| `VIN_RAW` | J1 / J1B positive, before F1 |
+| `VIN_RAW` | J1 / J5 positive, before F1 |
 | `VIN_F` | after F1 (PTC), D1 anode |
 | `VIN_PROT` | after D1 (Schottky): D2 TVS cathode, C1 bulk (+), FB1 pin 1 |
 | `VIN_BUCK` | after FB1: C2, C3, C4, U3 VIN, U3 EN |
@@ -24,7 +24,7 @@ Tags: **[DS]** datasheet, **[LIST]** JLC/LCSC listing only, **(interp.)** my int
 
 ```
  J1 pin1 (centre +) ─ VIN_RAW ─[F1 PTC]─ VIN_F ─►|─ VIN_PROT ─[FB1 600R@100MHz]─ VIN_BUCK ─┬─ U3 pin3 VIN
- (J1B pin1 DNP, parallel)                      D1 SS34   │                                  ├─ U3 pin2 EN
+ (J5 pin1 DNP, parallel)                      D1 SS34   │                                  ├─ U3 pin2 EN
                                                K=band    ├─ C1 100u/35V (+) ─ GND           ├─ C2 10u/50V ─ GND
                                                          └─ D2 SMAJ18A (K) ─ A ─ GND        ├─ C3 10u/50V ─ GND
                                                                                             └─ C4 100n ─ GND
@@ -49,7 +49,7 @@ Tags: **[DS]** datasheet, **[LIST]** JLC/LCSC listing only, **(interp.)** my int
 | RefDes | Value | MPN | LCSC (class) | KiCad symbol | KiCad footprint |
 |---|---|---|---|---|---|
 | J1 | DC jack 5.5x2.1, 5 A | CUI PJ-002AH | C2961147 (Ext) | `Connector:Barrel_Jack_Switch` (pins 1/2/3 passive) | **CUSTOM** `PJ-002AH` (generic `Connector_BarrelJack:BarrelJack_Horizontal` will not match; build from CUI p2: slots 1.00x3.50 (pin 1), 1.00x3.00 (pins 2 and 3)) |
-| J1B | 2-pin 5.08 terminal, **DNP** | KF128-5.08-2P | C474952 (Ext) | `Connector:Screw_Terminal_01x02` | `TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal` (KF128 hole sizes NOT checked) |
+| J5 | 2-pin 5.08 terminal, **DNP** | KF128-5.08-2P | C474952 (Ext) | `Connector:Screw_Terminal_01x02` | `TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal` (KF128 hole sizes NOT checked) |
 | F1 | PTC 0.35 A hold / 0.75 A trip, 30 V | Bel Fuse 0ZCJ0035AF2E (primary, see section 6) | C6378052 (Ext) | `Device:Polyfuse` | `Fuse:Fuse_1206_3216Metric` (hand-solder variant `..._Pad1.42x1.75mm_HandSolder` for prototypes) |
 | D1 | Schottky 40 V 3 A | SS34 (MDD) | C8678 (Basic) | `Device:D_Schottky` (pin 1 K, pin 2 A) | `Diode_SMD:D_SMA` (pad 1 = cathode, KiCad convention) |
 | D2 | TVS 18 V 400 W uni | SMAJ18A (Littelfuse) | C148219 (Ext) | `Diode:SMAJ18A` (pin 1 = cathode bar side, pin 2 = anode; pin names read A1/A2 in the library, graphic is unidirectional) | `Diode_SMD:D_SMA` (pad 1 = cathode) |
@@ -87,7 +87,7 @@ Tags: **[DS]** datasheet, **[LIST]** JLC/LCSC listing only, **(interp.)** my int
 
 Centre-positive polarity is NOT stated in the datasheet; it is the project's presumption (spec). Reverse plugs are blocked by D1 anyway. Plug mates with 2.1 mm centre pin: datasheet says "centre pin 2.0 mm"; verify against the intended adapter.
 
-### J1B KF128-5.08-2P (DNP, parallel footprint position)
+### J5 KF128-5.08-2P (DNP, parallel footprint position)
 | Pin | Net |
 |---|---|
 | 1 | `VIN_RAW` (silk "+") (interp.) |

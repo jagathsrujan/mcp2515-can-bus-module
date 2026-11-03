@@ -5,7 +5,7 @@
 Status: PRELIMINARY, derived from `phase5_can_phy.md` (Opus design, values unchanged), `ENGINEERING_SPEC.md`, `mcp2515_block_netlist.md`, `power_stage_netlist.md` and the datasheets read for V-10 ... V-14 (section 8). Written 2026-11-02.
 Library check: local KiCad install `/Applications/KiCad/KiCad.app/Contents/SharedSupport/{symbols,footprints}`.
 Tags: **[DS]** datasheet read (table/page given), **[LIST]** JLC/LCSC listing only, **[CALC]** calculation, **(interp.)** my interpretation, **NOT FOUND** not available, **FLAG** differs from, or is not stated in, the Opus doc.
-RefDes already used elsewhere (not reused): U1-U4, Y1, D1/D2, L1, FB1, F1, J1/J1B/J2, LED1, SJ1, C1-C18, R1-R10, TP_VIN/5V/3V3/VIO/GND/CLK/INT/TXCAN/RXCAN. U2 and its decoupling C12/C13/C14 are defined in `power_stage_netlist.md` and only cross-referenced here. New numbers in this file: D3, L2, R11-R17, C19, JP1, J3, J4, TP_CANH, TP_CANL, TP_STB.
+RefDes already used elsewhere (not reused): U1-U4, Y1, D1/D2, L1, FB1, F1, J1/J5/J2, LED1, SJ1, C1-C18, R1-R10, TP_VIN/5V/3V3/VIO/GND/CLK/INT/TXCAN/RXCAN. U2 and its decoupling C12/C13/C14 are defined in `power_stage_netlist.md` and only cross-referenced here. New numbers in this file: D3, L2, R11-R17, C19, JP1, J3, J4, TP_CANH, TP_CANL, TP_STB.
 
 ## 1. Net names
 
@@ -68,7 +68,7 @@ Both poles open: both legs are disconnected from the bus, C19 and the resistors 
 | C19 | 4.7 nF 50 V X7R 0603 (C_SPLIT) | 0603B472K500NT (FH) | C53987 (Basic, 840 933) | `Device:C` | `Capacitor_SMD:C_0603_1608Metric` |
 | JP1 | 2x2 header 2.54 mm + 2 shunts (Opus: primary, 3 A rating) | SH-PZ254V-2x2P (SHOU HAN), shunt 2.54 Short Circuit Cap (BOOMELE) | C55629823 (Ext, 1760); shunt C100114 (hand fitted, not JLC assembled) | `Connector_Generic:Conn_02x02_Odd_Even` (pin 1 CANH, 2 TERM_H, 3 CANL, 4 TERM_L; shunt 1-2 and 3-4) | `Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical` |
 | D3 | 2-line CAN ESD/TVS, VRWM 27 V, SOT-23 | PESD2CANFD27V-TR (Nexperia; datasheet type PESD2CANFD27V-T) | C552488 (Ext, 1595) | `Power_Protection:NUP2105L` (pin 1 K, 2 K, 3 A; same SOT-23 pinout as PESD2CANFD27V: pins 1, 2 = lines, 3 = common). Set Value / MPN / LCSC to the Nexperia part. FLAG: pin names differ from the Nexperia names (K1, K2, CC), numbers match | `Package_TO_SOT_SMD:SOT-23` (symbol default; Nexperia solder land p6 of datasheet not compared) |
-| J3, J4 | 3-pos screw terminal 5.08 mm, 1 CANH 2 CANL 3 GND | KF128-5.08-3P-AA (Cixi Kefa) | C474953 (Ext, 6719) | `Connector:Screw_Terminal_01x03` | `TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal` (same approach as J1B; KF128 drill / pad sizes NOT checked against the KF128 sheet) |
+| J3, J4 | 3-pos screw terminal 5.08 mm, 1 CANH 2 CANL 3 GND | KF128-5.08-3P-AA (Cixi Kefa) | C474953 (Ext, 6719) | `Connector:Screw_Terminal_01x03` | `TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal` (same approach as J5; KF128 drill / pad sizes NOT checked against the KF128 sheet) |
 | TP_CANH, TP_CANL, TP_STB | test pads | n/a | n/a | `Connector:TestPoint` | `TestPoint:TestPoint_Pad_D1.5mm` |
 
 New Extended-class types added by this block: C552488, C55629823, C474953 (U2 C124014 is already counted; L2 is DNP). Everything else is Basic.

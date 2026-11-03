@@ -18,7 +18,7 @@ Values / MPN / LCSC: `BOM_master.csv`. Design reasoning: `phase3…phase5_*.md`.
 | Sheet | File | Blocks | Contents |
 |---|---|---|---|
 | Root | MCP2515_CAN.kicad_sch | — | 3 sheet symbols, design notes text (§7), mounting holes H1/H2, fiducials FID1–3, logo/board info text |
-| 1 Power | power.kicad_sch | 1 Power input & protection, 2 Voltage regulation | J1, J1B, F1, D1, D2, C1, FB1, C2–C4, U3, C7, L1, C5, C6, LED (D4) + R1, U4, C8, C9, SJ1, TPs |
+| 1 Power | power.kicad_sch | 1 Power input & protection, 2 Voltage regulation | J1, J5, F1, D1, D2, C1, FB1, C2–C4, U3, C7, L1, C5, C6, LED (D4) + R1, U4, C8, C9, SJ1, TPs |
 | 2 Controller | controller.kicad_sch | 3 MCP2515, 4 Crystal, 7 SPI interface | U1, Y1, C15, C16, R4, C17, C18, R2, R3, R5–R10, J2, C10, C11, TPs |
 | 3 CAN PHY | can_phy.kicad_sch | 5 Transceiver, 6 Bus protection & connector | U2, C12–C14, R15, R16, R17, L2, R11–R14, C19, JP1, D3, J3, J4, TPs |
 
@@ -47,8 +47,8 @@ Keep the netlist ref-des except:
 - Create in project footprint lib:
   - `BarrelJack_CUI_PJ-002AH` from the CUI PJ-002AH drawing p2 (slots 1.0 × 3.5 / 1.0 × 3.0) — pin 1 centre (VIN_RAW), 2 sleeve (GND), 3 switch (NC, no-connect on symbol).
   - `L_CommonModeChoke_TDK_ACT45B` from `can_phy_netlist.md` V-14 dimensions.
-- J3/J4: `TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal` — check KF128 drill (datasheet) ≤ footprint drill − 0.1 mm clearance; if not, copy and adjust in project lib. J1B likewise (2-pin).
-- Every symbol gets fields: **Value, Footprint, Datasheet (URL), MPN, Manufacturer, LCSC** — from `BOM_master.csv`. DNP parts (J1B, L2) get the DNP attribute and stay in BOM marked DNP. Shunts for JP1 and SJ1 are not schematic parts (note text only).
+- J3/J4: `TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3-5.08_1x03_P5.08mm_Horizontal` — check KF128 drill (datasheet) ≤ footprint drill − 0.1 mm clearance; if not, copy and adjust in project lib. J5 likewise (2-pin).
+- Every symbol gets fields: **Value, Footprint, Datasheet (URL), MPN, Manufacturer, LCSC** — from `BOM_master.csv`. DNP parts (J5, L2) get the DNP attribute and stay in BOM marked DNP. Shunts for JP1 and SJ1 are not schematic parts (note text only).
 
 ## 6. Electrical rules
 - No-connect flags on: U1 pins 4, 5, 6, 10, 11; J1 pin 3 (switch).

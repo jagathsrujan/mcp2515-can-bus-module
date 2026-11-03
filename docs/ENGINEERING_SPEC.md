@@ -5,7 +5,7 @@
 | Project | MCP2515-based CAN bus module, external 9 V DC input |
 | Board revision | Rev A (not yet released) |
 | Fab / assembly | JLCPCB (PCB + PCBA) |
-| Current phase | **Phase 5 — CAN PHY (awaiting approval)**; Phases 1–4 approved 2026-11-02 |
+| Current phase | **Phase 8 — Final validation complete (Rev A ready for prototype order, pending user order-time checks)**; Phases 1–7 approved |
 | Spec owner | Opus (lead HW engineer) — Sonnet must not override decisions marked APPROVED |
 
 Value tags used throughout:
@@ -161,7 +161,7 @@ Linear 5 V regulator dissipation at 100 mA **[CALC]**: 9 V → (9 − 5) × 0.1 
 ### 3.1 Phase 2 component decisions (APPROVED 2026-11-02 — see `phase2_component_selection.md`)
 | ID | Decision |
 |---|---|
-| D-012 | U1 MCP2515-I/SO (SOIC-18 W), LCSC C12368 |
+| D-012 | U1 MCP2515 (SOIC-18 W) — LCSC **C153782** MCP2515T-I/SO (changed 2026-11-03 from C12368, which JLC lists as no longer manufactured) |
 | D-013 | U2 TCAN1042HGVDR, LCSC C124014; approved drop-in alternates TJA1051T/3/1J, MCP2562-E/SN (same pinout, pin 8 pulled low = normal on all) |
 | D-014 | U3 shortlisted AP63205WU-7 fixed-5 V buck; final LDO-vs-buck in Phase 3 |
 | D-015 | U4 TLV75533PDBVR 3.3 V LDO (optional VIO source) |
@@ -187,13 +187,23 @@ Linear 5 V regulator dissipation at 100 mA **[CALC]**: 9 V → (9 − 5) × 0.1 
 | D-026 | Reset: 10 kΩ pull-up + 10 nF to GND on RST_N, 1 kΩ to pin 17, exposed on J2-8 |
 | D-027 | SPI/INT: 33 Ω series on all five signals; 10 kΩ CS pull-up to VIO; INT push-pull; unused TXnRTS/RXnBF NC; CLKOUT to test pad only |
 
-### 3.4 Phase 5 decisions (PROPOSED — see `phase5_can_phy.md`)
+### 3.4 Phase 5 decisions (APPROVED 2026-11-02 — see `phase5_can_phy.md`)
 | ID | Decision |
 |---|---|
 | D-017 | (final) D3 = PESD2CANFD27V-TR, verified |
 | D-028 | U2 STB pin 10 kΩ to GND (Normal mode), TP_STB |
 | D-029 | Split termination 4 × 120 Ω + 4.7 nF, both legs switched by JP1 2×2 header |
 | D-030 | Order at bus: J3/J4 → D3 → termination → L2 (DNP, 0 Ω bypass) → U2 |
+
+### 3.5 Phase 6 (see `phase6_schematic_review.md`)
+| ID | Decision |
+|---|---|
+| D-031 | KiCad project `kicad/MCP2515_CAN/`, hierarchical (Power / Controller / CAN PHY); ERC 0; alt power terminal renamed J1B → **J5** |
+
+### 3.6 Phase 7 (see `phase7_pcb_review.md`)
+| ID | Decision |
+|---|---|
+| D-032 | Board 70 × 50 mm, 2-layer; D3 at J3/J4; KF128 project footprints (1.4 mm drill); DRC/parity 0 |
 
 ## 4. Implementation constraints identified (Phase 1)
 Phase 2 update: items 1–2 are closed by the TCAN1042 datasheet (Table 9-2 "Protected" mode: bus high-Z when either VIO or VCC is under-voltage); item 3 closed (FOSC ≤ 25 MHz at 2.7–5.5 V, 16 MHz chosen); item 4 confirmed by SPI timing diagrams (TDIS 100 ns). New: transceiver pin 8 (STB) defaults to standby when open, so it must be pulled low; MCP2515 RESET needs external pull-up (none internal).
@@ -273,3 +283,7 @@ Source: `research/jlcpcb_capabilities.md` (Sonnet, URLs inside). All project val
 | 2026-11-02 | 0.5 | Phase 2 approved; Phase 3 power design proposed (D-021…D-023, D-015r) | Opus |
 | 2026-11-02 | 0.6 | Phase 3 approved; Phase 4 proposed (D-024…D-027) | Opus |
 | 2026-11-02 | 0.7 | Phase 4 approved; Phase 5 proposed (D-028…D-030, D-017 final); JP1 now 2×2 | Opus |
+| 2026-11-03 | 0.8 | Phase 5 approved; Phase 6 schematic captured and reviewed (ERC 0, netlist verified); J1B → J5 | Opus |
+| 2026-11-03 | 0.9 | Phase 6 approved; Phase 7 PCB laid out, one correction round (D3, D2, silk), DRC 0 | Opus |
+| 2026-11-03 | 1.0 | Phase 7 approved; Phase 8 manufacturing package + final validation (`final/final_design_validation.md`) | Opus |
+| 2026-11-03 | 1.1 | U1 sourcing changed to C153782 (MCP2515T-I/SO) per user; ERC/DRC re-verified | Opus |

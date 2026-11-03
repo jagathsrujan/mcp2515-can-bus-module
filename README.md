@@ -1,18 +1,18 @@
 # MCP2515 CAN Bus Module — End-to-End Design
 
-Work-in-progress hardware design of an MCP2515-based CAN bus module (external 9 V DC input, 3.3 V / 5 V host compatible, JLCPCB fab + assembly).
+Hardware design of an MCP2515-based CAN bus module (external 9 V DC input, 3.3 V / 5 V host compatible, JLCPCB fab + assembly).
 
-**Status:** Phase 5 — CAN PHY (awaiting approval). Phases 1–4 approved; Phase 6 schematic plan drafted.
+**Status:** Phase 8 — final validation complete. Rev A is ready for a prototype order once the order-time checks are done. Phases 1–7 approved.
 
-## Contents
-- [`docs/ENGINEERING_SPEC.md`](docs/ENGINEERING_SPEC.md) — engineering spec (source of truth): requirements, architecture, decisions
-- [`docs/phase2_component_selection.md`](docs/phase2_component_selection.md) — component selection
-- [`docs/phase3_power_supply.md`](docs/phase3_power_supply.md) — power supply design
-- [`docs/power_stage_netlist.md`](docs/power_stage_netlist.md) — power stage netlist
-- [`docs/phase4_mcp2515_oscillator.md`](docs/phase4_mcp2515_oscillator.md), [`docs/mcp2515_block_netlist.md`](docs/mcp2515_block_netlist.md) — MCP2515 + oscillator
-- [`docs/phase5_can_phy.md`](docs/phase5_can_phy.md), [`docs/can_phy_netlist.md`](docs/can_phy_netlist.md) — CAN transceiver / physical layer
-- [`docs/phase6_schematic_plan.md`](docs/phase6_schematic_plan.md) — schematic plan
-- [`docs/BOM_master.csv`](docs/BOM_master.csv), [`docs/power_budget.xlsx`](docs/power_budget.xlsx)
-- [`docs/research/`](docs/research/) — datasheet extracts and JLCPCB capabilities
+![3D render](docs/pcb/render_iso.png)
 
-Schematic and PCB (KiCad) not started yet.
+## Where to look
+| What | Files |
+|---|---|
+| Spec (source of truth) | [`docs/ENGINEERING_SPEC.md`](docs/ENGINEERING_SPEC.md) |
+| Schematic | [PDF](docs/schematic/MCP2515_CAN_schematic.pdf), sheet PNGs and ERC report in [`docs/schematic/`](docs/schematic/) |
+| PCB | renders, layer images, DRC report and [`layout_report.md`](docs/pcb/layout_report.md) in [`docs/pcb/`](docs/pcb/), 3D [`MCP2515_CAN.step`](docs/pcb/MCP2515_CAN.step) |
+| KiCad project | [`kicad/MCP2515_CAN/`](kicad/MCP2515_CAN/) |
+| Manufacturing (JLCPCB) | Gerbers zip, BOM, CPL and rotation review in [`docs/manufacturing/`](docs/manufacturing/) |
+| Final docs | validation, BOM, connector pinouts, design notes, testing and commissioning in [`docs/final/`](docs/final/) |
+| Phase write-ups | `docs/phase2…phase7_*.md`, block netlists, research in [`docs/research/`](docs/research/) |
